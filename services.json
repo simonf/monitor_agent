@@ -1,0 +1,13 @@
+{
+  "services": [
+    {
+      "Name": "test1",
+      "Status": "No status",
+      "Service_type": "process",
+      "Parameters": {
+        "proc_regexp": "bash",
+        "line_count": 1
+      }
+    }
+  ]
+}
