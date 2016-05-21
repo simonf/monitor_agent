@@ -56,11 +56,14 @@ func sendToServers(b []byte) {
 	sl_mutex.Lock()
 	for _, ip := range server_list {
 		ua := net.UDPAddr{IP: ip, Port: 41237}
-		fmt.Printf("Dialing UDPAddress %v", ip)
+		fmt.Printf("Dialing UDPAddress %v\n", ip)
 		conn, err := net.DialUDP("udp4", nil, &ua)
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Printf("Sending %d bytes\n", len(b))
+
 		_, err = conn.Write(b)
 
 		if err != nil {
@@ -69,4 +72,5 @@ func sendToServers(b []byte) {
 		conn.Close()
 	}
 	sl_mutex.Unlock()
+	fmt.Println("Send complete")
 }
