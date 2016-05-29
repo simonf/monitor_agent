@@ -63,7 +63,7 @@ func checkServices(services []*SvcConfig) {
 }
 
 func checkProcess(service *SvcConfig) {
-	proc_regexp := service.Parameters["proc_regexp"]
+	proc_regexp := "ps -ef | grep " + service.Parameters["proc_regexp"] + " | wc -l"
 	linecnt, err := strconv.Atoi(service.Parameters["line_count"])
 	if err != nil {
 		panic(err)
@@ -100,7 +100,7 @@ func checkFile(service *SvcConfig) {
 	}
 	if len(filename) == 0 || younger_than_hours < 0.001 {
 		service.Status = "Error"
-		fmt.Printf("Missing filename or age limit for %s\n")
+		fmt.Printf("Missing filename or age limit for %s\n", service.Name)
 		return
 	}
 	stat, err := os.Stat(filename)
