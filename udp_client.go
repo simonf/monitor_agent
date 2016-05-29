@@ -32,7 +32,7 @@ func listenForServers() {
 
 	for {
 		n, addr, err := socket.ReadFromUDP(buf)
-		fmt.Println("Received ", string(buf[0:n]), " from ", addr)
+		// fmt.Println("Received ", string(buf[0:n]), " from ", addr)
 
 		if err != nil {
 			fmt.Println("Error: ", err)
@@ -56,13 +56,13 @@ func sendToServers(b []byte) {
 	sl_mutex.Lock()
 	for _, ip := range server_list {
 		ua := net.UDPAddr{IP: ip, Port: 41237}
-		fmt.Printf("Dialing UDPAddress %v\n", ip)
+		// fmt.Printf("Dialing UDPAddress %v\n", ip)
 		conn, err := net.DialUDP("udp4", nil, &ua)
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Sending %d bytes\n", len(b))
+		// fmt.Printf("Sending %d bytes\n", len(b))
 
 		_, err = conn.Write(b)
 
@@ -72,5 +72,5 @@ func sendToServers(b []byte) {
 		conn.Close()
 	}
 	sl_mutex.Unlock()
-	fmt.Println("Send complete")
+	// fmt.Println("Send complete")
 }

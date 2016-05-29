@@ -20,10 +20,10 @@ func periodicallyCheckServices() {
 			panic("No services to monitor")
 		}
 		checkServices(svcs)
-		fmt.Printf("Checked %d services\n", len(svcs))
+		// fmt.Printf("Checked %d services\n", len(svcs))
 		svcstosend := servicesFromSvcConfigs(svcs)
 		c := computerFromServices(svcstosend)
-		fmt.Printf("Sending to %d servers\n", len(server_list))
+		// fmt.Printf("Sending to %d servers\n", len(server_list))
 		ba := makeAgentPayload(c)
 		sendToServers(ba)
 		time.Sleep(time.Duration(sleep_minutes) * time.Minute)
