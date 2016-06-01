@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"simonf.net/monitor_db"
+	"strings"
 	"time"
 )
 
@@ -29,6 +30,7 @@ func computerFromServices(svcs []*monitor_db.Service) *monitor_db.Computer {
 		fmt.Println("Unable to get hostname")
 		hostname = "Unknown"
 	}
+	hostname = stripDomain(hostname)
 	return &monitor_db.Computer{Name: hostname, Status: calcHostStatus(svcs), Services: svcs, Updated: time.Now()}
 }
 
@@ -51,5 +53,13 @@ func calcHostStatus(svcs []*monitor_db.Service) string {
 		}
 	} else {
 		return "Red"
+	}
+}
+
+func stripDomain(hostname string) string {
+	if strings.Contains(hostname, ".") {
+		return strings.Split(hostname, ".")[0]
+	} else {
+		return hostname
 	}
 }
