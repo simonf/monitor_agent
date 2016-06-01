@@ -31,7 +31,7 @@ func listenForServers() {
 	buf := make([]byte, 1024)
 
 	for {
-		n, addr, err := socket.ReadFromUDP(buf)
+		_, addr, err := socket.ReadFromUDP(buf)
 		// fmt.Println("Received ", string(buf[0:n]), " from ", addr)
 
 		if err != nil {
