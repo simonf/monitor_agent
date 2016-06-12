@@ -1,4 +1,5 @@
 // +build windows
+
 package monitor_agent
 
 import (
@@ -27,8 +28,8 @@ func checkProcess(service *SvcConfig) {
 		panic(err)
 	}
 	cnt := 0
-	for _,proc := range plist {
-		tf, err := regexp.MatchString(proc_regexp,proc.Executable())
+	for _, proc := range plist {
+		tf, err := regexp.MatchString(proc_regexp, proc.Executable())
 		if err != nil {
 			panic(err)
 		}
