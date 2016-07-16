@@ -1,7 +1,7 @@
 package monitor_agent
 
 import (
-//	"fmt"
+	"fmt"
 	"time"
 )
 
@@ -29,6 +29,19 @@ func periodicallyCheckServices() {
 		time.Sleep(time.Duration(sleep_minutes) * time.Minute)
 		// printAll(svcs)
 	}
+}
+
+func RunOnce() {
+	svcs := readServices(config_file)
+	if len(svcs) < 1 {
+		panic("No services to monitor")
+	}
+	checkServices(svcs)
+	fmt.Printf("Checked %d services\n", len(svcs))
+	svcstosend := servicesFromSvcConfigs(svcs)
+	c := computerFromServices(svcstosend)
+	ba := makeAgentPayload(c)
+	fmt.Printf("%s\n", string(ba));	
 }
 
 func printAll(svcs []*SvcConfig) {

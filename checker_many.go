@@ -30,7 +30,7 @@ func checkProcess(service *SvcConfig) {
 	if err != nil {
 		panic(err)
 	}
-	// fmt.Printf("Command returned %s (%d bytes)\n", out.String(), len(out.String()))
+//	fmt.Printf("Command returned %s (%d bytes)\n", out.String(), len(out.String()))
 	nl, err := strconv.Atoi(strings.TrimSpace(out.String()))
 	if err != nil {
 		panic(err)
