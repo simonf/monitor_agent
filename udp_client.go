@@ -59,7 +59,8 @@ func sendToServers(b []byte) {
 		// fmt.Printf("Dialing UDPAddress %v\n", ip)
 		conn, err := net.DialUDP("udp4", nil, &ua)
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
+			continue
 		}
 
 		// fmt.Printf("Sending %d bytes\n", len(b))
