@@ -3,11 +3,7 @@ package monitor_agent
 import (
 	"fmt"
 	"net"
-	"sync"
 )
-
-var server_list = make([]net.IP, 0)
-var sl_mutex = &sync.Mutex{}
 
 func checkError(err error) {
 	if err != nil {
