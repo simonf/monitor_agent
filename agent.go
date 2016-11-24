@@ -12,6 +12,7 @@ var config_file = "services.json"
 var sleep_minutes = 1
 
 var server_list = make([]net.IP, 0)
+var server_config *ServerConfig
 var sl_mutex = &sync.Mutex{}
 
 func Start() {
@@ -19,12 +20,7 @@ func Start() {
 	if err != nil {
 		go listenForServers()
 	} else {
-		ips_from_dns, err := net.LookupIP(sc.Name)
-		if err != nil {
-			server_list = append(server_list, net.ParseIP(sc.Address))
-		} else {
-			server_list = append(server_list, ips_from_dns[0])
-		}
+		server_config = sc
 	}
 	go periodicallyCheckServices()
 }

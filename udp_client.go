@@ -49,6 +49,15 @@ func listenForServers() {
 }
 
 func sendToServers(b []byte) {
+	if server_config != nil {
+		server_list = make([]net.IP, 0)
+		ips_from_dns, err := net.LookupIP(server_config.Name)
+		if err != nil {
+			server_list = append(server_list, net.ParseIP(server_config.Address))
+		} else {
+			server_list = append(server_list, ips_from_dns[0])
+		}
+	}
 	sl_mutex.Lock()
 	for _, ip := range server_list {
 		ua := net.UDPAddr{IP: ip, Port: 41237}
