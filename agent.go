@@ -19,7 +19,12 @@ func Start() {
 	if err != nil {
 		go listenForServers()
 	} else {
-		server_list = append(server_list, net.ParseIP(sc.Address))
+		ips_from_dns, err := net.LookupIP(sc.Name)
+		if err != nil {
+			server_list = append(server_list, net.ParseIP(sc.Address))
+		} else {
+			server_list = append(server_list, ips_from_dns[0])
+		}
 	}
 	go periodicallyCheckServices()
 }
